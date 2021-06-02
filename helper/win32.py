@@ -9,7 +9,7 @@ def waitForT():
     while True:
         keyState = win32api.GetAsyncKeyState(ord("T"))  # T key VKEY state
 
-        # print(keyState)  # DBG
+        print(keyState)  # DBG
 
         if keyState != 0:
             return
