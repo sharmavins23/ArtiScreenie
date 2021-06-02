@@ -1,5 +1,4 @@
 import win32api
-from playsound import playsound
 import time
 
 # Contains all helper keyboard code
@@ -14,11 +13,6 @@ def waitForT():
 
         if keyState != 0:
             return
-
-
-# Plays a honk sound
-def playSound():
-    playsound("./assets/honk.mp3")
 
 
 # Waits for a standardized amount of time

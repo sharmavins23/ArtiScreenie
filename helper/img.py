@@ -1,7 +1,9 @@
 import pyautogui
-from win32 import waitForT, playSound, pause
+from helper.win32 import waitForT, pause
 from PIL import Image
 from functools import reduce
+from io import BytesIO
+import win32clipboard
 
 # Contains all helper screenshot code
 
@@ -12,8 +14,6 @@ def takeShot(TL, OFF):
 
     # Take a screenshot
     image = pyautogui.screenshot(region=TL+OFF)
-    # Play notification sound
-    playSound()
     pause()
 
     return image
@@ -59,3 +59,18 @@ def concatImages(imgs):
             retImg = concat2ImagesVerti(retImg, chunkImg)
 
     return retImg
+
+
+# Send the current image data to the Windows clipboard
+def sendToClipboard(image):
+    # Convert Image object into BMP bytestream
+    output = BytesIO()
+    image.convert("RGB").save(output, "BMP")
+    data = output.getvalue()[14:]
+    output.close()
+
+    # Send to clipboard
+    win32clipboard.OpenClipboard()  # Initialize reference
+    win32clipboard.EmptyClipboard()  # remove current data
+    win32clipboard.SetClipboardData(win32clipboard.CF_DIB, data)
+    win32clipboard.CloseClipboard()

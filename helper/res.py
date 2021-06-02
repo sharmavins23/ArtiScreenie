@@ -13,7 +13,8 @@ def getScreenResData(context):
         (2560, 1440): {
             'backpack': {
                 'TL': (1723, 160),
-                'BR': (2378, 1279)
+                'BR': (2378, 1279),
+                'OFF': tuple(map(lambda a, b: a-b, (2378, 1279), (1723, 160)))
             }
         }
     }
