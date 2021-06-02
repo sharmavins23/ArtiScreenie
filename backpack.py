@@ -9,6 +9,7 @@ context = "backpack"
 def takeOneScreenie():
     # First, get screen resolution
     data = getScreenResData(context)
+    pause()
 
     print("Press T when ready to take screenshot.")
 
