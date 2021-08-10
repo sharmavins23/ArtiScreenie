@@ -39,7 +39,6 @@ def takeNScreenshots():
     print("Press T to take a screenshot. Press X to stop and save.")
 
     images = []
-    imgCount = 0
     while True:
         # Process choice
         choice = waitForTX()
@@ -48,22 +47,21 @@ def takeNScreenshots():
 
         # Take the shot
         arti = takeShotNoWait(data["TL"], data["OFF"])
-        imgCount += 1
 
         # Append it to the list
         images.append(arti)
         print("Screenshot taken.")
-        print("Total: " + str(imgCount))
+        print("Total: " + str(len(images)))
 
     # Finally, concatenate all images
     print("Concatenating...")
-    # First, split array into chunks of 5 or less
+    # First, split array into chunks of 5 or less (rows of images)
     images = listToChunks(images, 5)
-
-    # Reduce all images in a row to one
-    imageRows = [reduce(concat2ImagesHoriz, row) for row in images]
-    # Then, concatenate all rows
-    fullImg = reduce(concat2ImagesVerti, imageRows)
+    # Concatenate the full image from the rows
+    fullImg = reduce(
+        concat2ImagesVerti,
+        [reduce(concat2ImagesHoriz, row) for row in images]
+    )
 
     # Send full image to the clipboard
     sendToClipboard(fullImg)
