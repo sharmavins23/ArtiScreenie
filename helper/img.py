@@ -34,7 +34,12 @@ def listToChunks(images, n):
 
 # Concatenate two images together horizontally
 def concat2ImagesHoriz(image1, image2):
-    image = Image.new("RGB", (image1.width + image2.width, image1.height))
+    newRes = (
+        image1.width + image2.width,  # Calculate new width
+        max(image1.height, image2.height)  # Calculate new height
+    )
+
+    image = Image.new("RGB", newRes)
     image.paste(image1, (0, 0))
     image.paste(image2, (image1.width, 0))
     return image
@@ -42,7 +47,12 @@ def concat2ImagesHoriz(image1, image2):
 
 # Concatenate two images together vertically
 def concat2ImagesVerti(image1, image2):
-    image = Image.new("RGB", (image1.width, image1.height + image2.height))
+    newRes = (
+        max(image1.width, image2.width),  # Calculate new width
+        image1.height + image2.height  # Calculate new height
+    )
+
+    image = Image.new("RGB", newRes)
     image.paste(image1, (0, 0))
     image.paste(image2, (0, image1.height))
     return image
