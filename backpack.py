@@ -1,6 +1,5 @@
-from functools import reduce
 from helper.res import getScreenResData
-from helper.img import concat2ImagesHoriz, concat2ImagesVerti, concatImages, takeShot, sendToClipboard, listToChunks, takeShotNoWait
+from helper.img import concatImages, concatImagesNoChunking, takeShot, sendToClipboard, takeShotNoWait
 from helper.win32 import pause, waitForTNX, waitForTX
 
 context = "backpack"
@@ -99,7 +98,7 @@ def takePScreenshots():
     # First, remove all empty lists
     images = [x for x in images if x]
     # Then, concatenate all images
-    fullImg = concatImages(images)
+    fullImg = concatImagesNoChunking(images)
 
     # Send full image to the clipboard
     sendToClipboard(fullImg)

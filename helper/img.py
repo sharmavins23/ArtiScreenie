@@ -66,6 +66,11 @@ def concatImages(imgs):
     return reduce(concat2ImagesVerti, [reduce(concat2ImagesHoriz, row) for row in imgs])
 
 
+# Concatenate many images without chunking together
+def concatImagesNoChunking(imgs):
+    return reduce(concat2ImagesVerti, [reduce(concat2ImagesHoriz, row) for row in imgs])
+
+
 # Send the current image data to the Windows clipboard
 def sendToClipboard(image):
     # Convert Image object into BMP bytestream
