@@ -19,6 +19,14 @@ def takeShot(TL, OFF):
     return image
 
 
+# Takes a screenshot without wait
+def takeShotNoWait(TL, OFF):
+    image = pyautogui.screenshot(region=TL+OFF)
+    pause()
+
+    return image
+
+
 # Splits a list of images into chunks of size n
 def listToChunks(images, n):
     return [images[i:i + n] for i in range(0, len(images), n)]
