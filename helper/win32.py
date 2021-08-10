@@ -45,6 +45,25 @@ def waitForTX():
             return "X"
 
 
+# Waits for a T, N, or X key to take a shot, newline, or exit
+def waitForTNX():
+    while True:
+        keyStateT = win32api.GetAsyncKeyState(ord("T"))  # T key VKEY state
+        keyStateN = win32api.GetAsyncKeyState(ord("N"))  # N key VKEY state
+        keyStateX = win32api.GetAsyncKeyState(ord("X"))  # X key VKEY state
+
+        # print(keyStateT)  # DBG
+        # print(keyStateN)  # DBG
+        # print(keyStateX)  # DBG
+
+        if keyStateT != 0:
+            return "T"
+        elif keyStateN != 0:
+            return "N"
+        elif keyStateX != 0:
+            return "X"
+
+
 # Waits for a standardized amount of time
 def pause():
     time.sleep(0.1)

@@ -1,7 +1,7 @@
 from functools import reduce
 from helper.res import getScreenResData
 from helper.img import concat2ImagesHoriz, concat2ImagesVerti, concatImages, takeShot, sendToClipboard, listToChunks, takeShotNoWait
-from helper.win32 import pause, waitForTX
+from helper.win32 import pause, waitForTNX, waitForTX
 
 context = "backpack"
 
@@ -62,6 +62,48 @@ def takeNScreenshots():
     print("Image processed on clipboard.")
 
 
+# Take N screenshots, with user specified newlines, and send to clipboard
+def takePScreenshots():
+    # First, get screen resolution
+    data = getScreenResData(context)
+    pause()
+
+    print("Press T to take a screenshot. Press X to stop and save. Press N for new line.")
+
+    images = []
+    imgCount = 0
+    while True:
+        currentLine = []
+        # Process choice
+        choice = waitForTNX()
+        if choice == "X":
+            break
+        elif choice == "N":
+            print("New line")
+            images.append(currentLine)
+            currentLine = []
+
+        # Take the shot
+        arti = takeShotNoWait(data["TL"], data["OFF"])
+        imgCount += 1
+
+        # Append it to the current line
+        currentLine.append(arti)
+        print("Screenshot taken.")
+        print("Total: " + str(imgCount))
+
+    # Finally, concatenate all images
+    print("Concatenating...")
+    # First, remove all empty lists
+    images = [x for x in images if x]
+    # Then, concatenate all images
+    fullImg = concatImages(images)
+
+    # Send full image to the clipboard
+    sendToClipboard(fullImg)
+    print("Image processed on clipboard.")
+
+
 # Driver code
 if __name__ == "__main__":
     print("Screenshot tool - Backpack edition")
@@ -70,6 +112,7 @@ if __name__ == "__main__":
     choice = input(
         """    [1] One artifact
     [n] N artifacts (any number)
+    [p] N artifacts, with user-defined newlines
     [c] Continuous mode
 Default 1: """
     )
@@ -78,5 +121,7 @@ Default 1: """
         takeOneScreenie()
     elif choice == "c":
         takeContinuous()
+    elif choice == "p":
+        takePScreenshots()
     else:
         takeNScreenshots()
