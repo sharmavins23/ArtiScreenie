@@ -56,6 +56,8 @@ def takeNScreenshots():
 
         if choice == "X":
             break
+        else:
+            print("Continuing...")
 
     # Finally, concatenate all images
     print("Concatenating...")
@@ -69,6 +71,7 @@ def takeNScreenshots():
 
     # Send full image to the clipboard
     sendToClipboard(fullImg)
+    print("Image processed on clipboard.")
 
 
 # Driver code
