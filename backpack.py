@@ -72,6 +72,7 @@ def takePScreenshots():
     images = []
     currentLine = []  # Stores the current line of images
     imgCount = 0
+    lineCount = 0
     while True:
         # Process choice
         choice = waitForTNX()
@@ -82,6 +83,7 @@ def takePScreenshots():
             pause()  # Pause for keyboard state to decay
             images.append(currentLine)
             currentLine = []
+            lineCount = 0
             continue
 
         # Take the shot
@@ -91,7 +93,8 @@ def takePScreenshots():
         # Append it to the current line
         currentLine.append(arti)
         print("Screenshot taken.")
-        print("Total: " + str(imgCount))
+        print("Total: " + str(imgCount) +
+              " (" + str(lineCount) + " on current line)")
 
     # Finally, concatenate all images
     print("Concatenating...")
