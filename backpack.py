@@ -89,6 +89,7 @@ def takePScreenshots():
         # Take the shot
         arti = takeShotNoWait(data["TL"], data["OFF"])
         imgCount += 1
+        lineCount += 1
 
         # Append it to the current line
         currentLine.append(arti)
