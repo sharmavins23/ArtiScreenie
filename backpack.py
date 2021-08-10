@@ -71,15 +71,16 @@ def takePScreenshots():
     print("Press T to take a screenshot. Press X to stop and save. Press N for new line.")
 
     images = []
+    currentLine = []  # Stores the current line of images
     imgCount = 0
     while True:
-        currentLine = []
         # Process choice
         choice = waitForTNX()
         if choice == "X":
             break
         elif choice == "N":
             print("Line ended.")
+            pause()  # Pause for keyboard state to decay
             images.append(currentLine)
             currentLine = []
             continue
