@@ -66,4 +66,4 @@ def waitForTNX():
 
 # Waits for a standardized amount of time
 def pause():
-    time.sleep(0.1)
+    time.sleep(0.25)
