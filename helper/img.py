@@ -50,28 +50,10 @@ def concat2ImagesVerti(image1, image2):
 
 # Concatenate many images together
 def concatImages(imgs):
-    chunkList = []
+    imgs = listToChunks(imgs, 5)
 
-    # Start by breaking image list into chunks of size 5 max
-    while len(imgs) > 5:
-        chunk = imgs[:5]  # Split off a chunk from the start
-        imgs = imgs[5:]  # and cut off the remainder
-        chunkList.append(chunk)
-
-    chunkList.append(imgs)  # Append the remainder
-
-    retImg = None
-    # Iterate through chunklist and merge into images
-    for chunk in chunkList:
-        # Combine a chunk into a horizontal row of 5 artifacts
-        chunkImg = reduce(concat2ImagesHoriz, chunk)
-
-        if retImg is None:  # On first run, save this image
-            retImg = chunkImg
-        else:  # Otherwise, paste onto the bottom of this image
-            retImg = concat2ImagesVerti(retImg, chunkImg)
-
-    return retImg
+    # Concatenate all images and return
+    return reduce(concat2ImagesVerti, [reduce(concat2ImagesHoriz, row) for row in imgs])
 
 
 # Send the current image data to the Windows clipboard

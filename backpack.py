@@ -1,6 +1,6 @@
 from functools import reduce
 from helper.res import getScreenResData
-from helper.img import concat2ImagesHoriz, concat2ImagesVerti, takeShot, sendToClipboard, listToChunks, takeShotNoWait
+from helper.img import concat2ImagesHoriz, concat2ImagesVerti, concatImages, takeShot, sendToClipboard, listToChunks, takeShotNoWait
 from helper.win32 import pause, waitForTX
 
 context = "backpack"
@@ -55,13 +55,7 @@ def takeNScreenshots():
 
     # Finally, concatenate all images
     print("Concatenating...")
-    # First, split array into chunks of 5 or less (rows of images)
-    images = listToChunks(images, 5)
-    # Concatenate the full image from the rows
-    fullImg = reduce(
-        concat2ImagesVerti,
-        [reduce(concat2ImagesHoriz, row) for row in images]
-    )
+    fullImg = concatImages(images)
 
     # Send full image to the clipboard
     sendToClipboard(fullImg)
