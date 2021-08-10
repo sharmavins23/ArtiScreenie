@@ -79,9 +79,10 @@ def takePScreenshots():
         if choice == "X":
             break
         elif choice == "N":
-            print("New line")
+            print("Line ended.")
             images.append(currentLine)
             currentLine = []
+            continue
 
         # Take the shot
         arti = takeShotNoWait(data["TL"], data["OFF"])
