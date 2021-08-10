@@ -19,6 +19,11 @@ def takeShot(TL, OFF):
     return image
 
 
+# Splits a list of images into chunks of size n
+def listToChunks(images, n):
+    return [images[i:i + n] for i in range(0, len(images), n)]
+
+
 # Concatenate two images together horizontally
 def concat2ImagesHoriz(image1, image2):
     image = Image.new("RGB", (image1.width + image2.width, image1.height))
