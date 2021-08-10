@@ -77,6 +77,7 @@ def takePScreenshots():
         # Process choice
         choice = waitForTNX()
         if choice == "X":
+            images.append(currentLine)  # Add the final line to the list
             break
         elif choice == "N":
             print("Line ended.")
