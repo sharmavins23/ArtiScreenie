@@ -30,6 +30,21 @@ def waitForCX():
             return "X"
 
 
+# Waits for a T or X key to take a shot or exit
+def waitForTX():
+    while True:
+        keyStateT = win32api.GetAsyncKeyState(ord("T"))  # T key VKEY state
+        keyStateX = win32api.GetAsyncKeyState(ord("X"))  # X key VKEY state
+
+        # print(keyStateT)  # DBG
+        # print(keyStateX)  # DBG
+
+        if keyStateT != 0:
+            return "T"
+        elif keyStateX != 0:
+            return "X"
+
+
 # Waits for a standardized amount of time
 def pause():
     time.sleep(0.1)

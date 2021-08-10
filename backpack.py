@@ -1,7 +1,7 @@
 from functools import reduce
 from helper.res import getScreenResData
-from helper.img import concat2ImagesHoriz, concat2ImagesVerti, takeShot, sendToClipboard, listToChunks
-from helper.win32 import pause, waitForCX
+from helper.img import concat2ImagesHoriz, concat2ImagesVerti, takeShot, sendToClipboard, listToChunks, takeShotNoWait
+from helper.win32 import pause, waitForTX
 
 context = "backpack"
 
@@ -36,28 +36,24 @@ def takeNScreenshots():
     data = getScreenResData(context)
     pause()
 
-    print("Press T to take a screenshot.")
+    print("Press T to take a screenshot. Press X to stop and save.")
 
     images = []
     imgCount = 0
     while True:
-        # First, take the shot
-        arti = takeShot(data["TL"], data["OFF"])
+        # Process choice
+        choice = waitForTX()
+        if choice == "X":
+            break
+
+        # Take the shot
+        arti = takeShotNoWait(data["TL"], data["OFF"])
         imgCount += 1
 
         # Append it to the list
         images.append(arti)
         print("Screenshot taken.")
         print("Total: " + str(imgCount))
-
-        # Wait for user continue input
-        print("Press C to continue. Press X to stop.")
-        choice = waitForCX()
-
-        if choice == "X":
-            break
-        else:
-            print("Continuing...")
 
     # Finally, concatenate all images
     print("Concatenating...")
